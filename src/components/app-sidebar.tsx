@@ -1,4 +1,26 @@
-import { Calendar, Home, Inbox, Search, Settings,ChevronDown } from "lucide-react"
+// import { Calendar, Home, Inbox, Search, Settings,ChevronDown } from "lucide-react"
+import {
+  ChevronDown,
+  Home,
+  Inbox,
+  Calendar,
+  Search,
+  Settings,
+  Server,
+  Laptop,
+  HardDrive,
+  Database,
+  Box,
+  Folder,
+  Shield,
+  Shuffle,
+  Flame,
+  Network,
+  Zap,
+  Cpu,
+  Router,
+  GitBranch,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -9,39 +31,100 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem
 } from "@/components/ui/sidebar"
 
 import { Collapsible,CollapsibleTrigger,CollapsibleContent } from "./ui/collapsible"
 
 // Menu items.
+// const resources = [
+//   {
+//     title: "Compute Management",
+//     url: "#",
+//     icon: Home,
+//   },
+//   {
+//     title: "Storage Management",
+//     url: "#",
+//     icon: Inbox,
+//   },
+//   {
+//     title: "Network Management",
+//     url: "#",
+//     icon: Calendar,
+//   },
+//   {
+//     title: "Platform as a Services",
+//     url: "#",
+//     icon: Search,
+//   },
+//   {
+//     title: "NextGen Computing",
+//     url: "#",
+//     icon: Settings,
+//   },
+// ]
+
 const resources = [
   {
     title: "Compute Management",
     url: "#",
-    icon: Home,
+    icon: Server,
+    children: [
+      { title: "x86", url: "#", icon: Server },
+      { title: "AIX", url: "#", icon: Server },
+      { title: "Solaris", url: "#", icon: Server },
+      { title: "MAC", url: "#", icon: Laptop },
+    ],
   },
   {
     title: "Storage Management",
     url: "#",
     icon: Inbox,
+    children: [
+      { title: "Block Storage", url: "#", icon: HardDrive },
+      { title: "Object Storage", url: "#", icon: Database },
+      { title: "S3 Buckets", url: "#", icon: Box },
+      { title: "NAS Storage", url: "#", icon: Folder },
+    ],
   },
   {
     title: "Network Management",
     url: "#",
     icon: Calendar,
+    children: [
+      { title: "Security Groups", url: "#", icon: Shield },
+      { title: "VLANs", url: "#", icon: GitBranch },
+      { title: "LBs", url: "#", icon: Shuffle },
+      { title: "Firewalls", url: "#", icon: Flame },
+    ],
   },
   {
-    title: "Platform as a Services",
+    title: "Platform as a Service",
     url: "#",
     icon: Search,
+    children: [
+      { title: "Kubernetes", url: "#", icon: Network },
+      { title: "DBaaS", url: "#", icon: Database },
+    ],
   },
   {
     title: "NextGen Computing",
     url: "#",
     icon: Settings,
+    children: [
+      { title: "Serverless", url: "#", icon: Zap },
+      { title: "Edge Computing", url: "#", icon: Router },
+      { title: "IoT", url: "#", icon: Cpu },
+    ],
   },
-]
+];
+
+
+
+
 const automationCenter = [
   {
     title: "Task Scheduler",
@@ -362,8 +445,10 @@ export function AppSidebar() {
 
       <SidebarContent>
 
+
+
         {/* Resources*/}
-        <Collapsible defaultOpen className="group/collapsible">
+        {/* <Collapsible defaultOpen className="group/collapsible">
         <SidebarGroup>
         <SidebarGroupLabel asChild>
           <CollapsibleTrigger>
@@ -384,6 +469,7 @@ export function AppSidebar() {
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
+                 
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
@@ -392,7 +478,63 @@ export function AppSidebar() {
 
 
         </SidebarGroup>
-        </Collapsible>
+        </Collapsible> */}
+<Collapsible defaultOpen className="group/collapsible">
+  <SidebarGroup>
+    <SidebarGroupLabel asChild>
+      <CollapsibleTrigger>
+        Resources
+        <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+      </CollapsibleTrigger>
+    </SidebarGroupLabel>
+    <CollapsibleContent>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          {resources.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              {/* New Collapsible for each item */}
+              <Collapsible className="group/item-collapsible">
+                <SidebarMenuButton asChild>
+                  <CollapsibleTrigger className="flex items-center w-full">
+                    <a href={item.url} className="flex items-center w-full">
+                      <item.icon className="w-4 h-4 mr-2" />
+                      <span>{item.title}</span>
+                      {item.children && (
+                        <ChevronDown className="ml-auto transition-transform group-data-[state=open]/item-collapsible:rotate-180" />
+                      )}
+                    </a>
+                  </CollapsibleTrigger>
+                </SidebarMenuButton>
+
+                {/* Submenu collapses */}
+                {item.children && item.children.length > 0 && (
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      {item.children.map((child) => (
+                        <SidebarMenuSubItem key={child.title}>
+                          <SidebarMenuSubButton asChild>
+                            <a href={child.url} className="flex items-center">
+                              <child.icon className="w-4 h-4 mr-2" />
+                              <span>{child.title}</span>
+                            </a>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                )}
+              </Collapsible>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </CollapsibleContent>
+  </SidebarGroup>
+</Collapsible>
+
+
+
+
 
 
         {/* Automation Center */}
