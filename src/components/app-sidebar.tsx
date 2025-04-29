@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Calendar, Home, Inbox, Search, Settings,ChevronDown } from "lucide-react"
 
 import {
   Sidebar,
@@ -11,6 +11,8 @@ import {
   SidebarMenuItem,
   
 } from "@/components/ui/sidebar"
+
+import { Collapsible,CollapsibleTrigger,CollapsibleContent } from "./ui/collapsible"
 
 // Menu items.
 const resources = [
@@ -355,11 +357,23 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
 
 
+
+
+
       <SidebarContent>
 
         {/* Resources*/}
+        <Collapsible defaultOpen className="group/collapsible">
         <SidebarGroup>
-          <SidebarGroupLabel>Resources</SidebarGroupLabel>
+        <SidebarGroupLabel asChild>
+          <CollapsibleTrigger>
+            Resources
+            <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+          </CollapsibleTrigger>
+        </SidebarGroupLabel>
+          <CollapsibleContent>
+
+
           <SidebarGroupContent>
             <SidebarMenu>
               {resources.map((item) => (
@@ -374,8 +388,11 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>
+          </CollapsibleContent>
 
+
+        </SidebarGroup>
+        </Collapsible>
 
 
         {/* Automation Center */}
