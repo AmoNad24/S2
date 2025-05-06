@@ -118,3 +118,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .sidebar-top-level-button {
+    @apply w-full justify-start text-gray-700; /* Apply base styles */
+  }
+  .sidebar-top-level-button:hover {
+    @apply bg-gray-200; /* Keep the background color */
+    width: calc(100% - 20px); /* Reduce the hover width - adjust 20px as needed */
+  }
+  .sidebar-collapsed-top-level-button {
+    @apply justify-center px-0;
+  }
+  .sidebar-expanded-top-level-button {
+    @apply px-2;
+  }
+}
