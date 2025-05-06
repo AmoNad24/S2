@@ -1,484 +1,385 @@
-// import { Calendar, Home, Inbox, Search, Settings,ChevronDown } from "lucide-react"
-import {
+"use client";
+import { useSidebar } from "@/components/ui/sidebar/sidebar-context";
+import { useState } from "react";
+import { 
+  LayoutDashboard, 
+  Server, 
+  Shield,
   ChevronDown,
-  Home,
-  Inbox,
-  Calendar,
-  Search,
-  Settings,
-  Server,
-  Laptop,
+  ChevronRight,
   HardDrive,
   Database,
   Box,
   Folder,
-  Shield,
+  GitBranch,
   Shuffle,
   Flame,
   Network,
   Zap,
   Cpu,
   Router,
-  GitBranch,
-} from "lucide-react";
+  Laptop,
+  ChevronLeft,
+  Home,
+  Bell,
+  Bot,
+  BrainCircuit,
+  Calendar,
+  Eye,
+  Inbox,
+  LifeBuoy,
+  Plug,
+  RotateCw,
+  Settings,
+  Store,
+  Users,
+  Wallet,
+  MoveRight} from "lucide-react";
+import { Button } from "./ui/button";
+import { ScrollArea } from "./ui/scroll-area";
+import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+// import Image from "next/image";
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem
-} from "@/components/ui/sidebar"
-
-import { Collapsible,CollapsibleTrigger,CollapsibleContent } from "./ui/collapsible"
-
-const resources = [
+const menuItems = [
   {
-    title: "Compute Management",
-    url: "#",
+    title: "Overview",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Resources",
     icon: Server,
-    children: [
-      { title: "x86", url: "#", icon: Server },
-      { title: "AIX", url: "#", icon: Server },
-      { title: "Solaris", url: "#", icon: Server },
-      { title: "MAC", url: "#", icon: Laptop },
-    ],
+    subItems: [
+      { 
+        title: "Compute Management", 
+        icon: Server,
+        children: [
+          { title: "x86", icon: Server },
+          { title: "AIX", icon: Server },
+          { title: "Solaris", icon: Server },
+          { title: "MAC", icon: Laptop }
+        ]
+      },
+      { 
+        title: "Storage Management", 
+        icon: HardDrive,
+        children: [
+          { title: "Block Storage", icon: HardDrive },
+          { title: "Object Storage", icon: Database },
+          { title: "S3 Buckets", icon: Box },
+          { title: "NAS Storage", icon: Folder }
+        ]
+      },
+      { 
+        title: "Network Management", 
+        icon: Network,
+        children: [
+          { title: "Security Groups", icon: Shield },
+          { title: "VLANs", icon: GitBranch },
+          { title: "LBs", icon: Shuffle },
+          { title: "Firewalls", icon: Flame }
+        ]
+      },
+      { 
+        title: "Platform as a Service", 
+        icon: Database,
+        children: [
+          { title: "Kubernetes", icon: Network },
+          { title: "DBaaS", icon: Database }
+        ]
+      },
+      { 
+        title: "NextGen Computing", 
+        icon: Cpu,
+        children: [
+          { title: "Serverless", icon: Zap },
+          { title: "Edge Computing", icon: Router },
+          { title: "IoT", icon: Cpu }
+        ]
+      }
+    ]
   },
   {
-    title: "Storage Management",
-    url: "#",
-    icon: Inbox,
-    children: [
-      { title: "Block Storage", url: "#", icon: HardDrive },
-      { title: "Object Storage", url: "#", icon: Database },
-      { title: "S3 Buckets", url: "#", icon: Box },
-      { title: "NAS Storage", url: "#", icon: Folder },
-    ],
+    title: "Automation Center",
+    icon: Bot,
+    subItems: [
+      { title: "Task Scheduler", icon: Calendar },
+      { title: "Ansible", icon: Settings },
+      { title: "Terraform", icon: GitBranch }
+    ]
   },
   {
-    title: "Network Management",
-    url: "#",
-    icon: Calendar,
-    children: [
-      { title: "Security Groups", url: "#", icon: Shield },
-      { title: "VLANs", url: "#", icon: GitBranch },
-      { title: "LBs", url: "#", icon: Shuffle },
-      { title: "Firewalls", url: "#", icon: Flame },
-    ],
+    title: "AI/ML Hub",
+    icon: BrainCircuit,
+    subItems: [
+      { title: "Models", icon: Home },
+      { title: "Training", icon: Inbox },
+      { title: "Inference", icon: Calendar },
+      { title: "Pipelines", icon: Calendar },
+      { title: "Data Management", icon: Calendar }
+    ]
   },
   {
-    title: "Platform as a Service",
-    url: "#",
-    icon: Search,
-    children: [
-      { title: "Kubernetes", url: "#", icon: Network },
-      { title: "DBaaS", url: "#", icon: Database },
-    ],
+    title: "Observability",
+    icon: Eye,
+    subItems: [
+      { title: "Logs", icon: Home },
+      { title: "Alerts", icon: Inbox },
+      { title: "Anomaly Detection", icon: Calendar },
+      { title: "Metrics", icon: Calendar },
+      { title: "Tracing", icon: Calendar },
+      { title: "Audit Logs", icon: Calendar },
+      { title: "Capacity Planning", icon: Calendar }
+    ]
   },
   {
-    title: "NextGen Computing",
-    url: "#",
+    title: "Marketplace",
+    icon: Store,
+    subItems: [
+      { title: "Apps", icon: Home },
+      { title: "Services", icon: Inbox },
+      { title: "Templates", icon: Calendar }
+    ]
+  },
+  {
+    title: "Compliance Center",
+    icon: Shield,
+    subItems: [
+      { title: "Compliance Reports", icon: Home },
+      { title: "Audit Reports", icon: Inbox },
+      { title: "Policy Management", icon: Calendar },
+      { title: "Risk Assessment", icon: Calendar }
+    ]
+  },
+  {
+    title: "IAM",
+    icon: Users,
+    subItems: [
+      { title: "User Management", icon: Home },
+      { title: "RBAC", icon: Inbox },
+      { title: "Single Sign-On", icon: Calendar },
+      { title: "Multi-Factor Setup", icon: Calendar },
+      { title: "Identity Federation", icon: Calendar },
+      { title: "API Key Management", icon: Calendar }
+    ]
+  },
+  {
+    title: "Backup & DR",
+    icon: RotateCw,
+    subItems: [
+      { title: "Backup", icon: Home },
+      { title: "Restore", icon: Inbox },
+      { title: "Replication", icon: Calendar },
+      { title: "Disaster Recovery", icon: Calendar }
+    ]
+  },
+  {
+    title: "Config Management",
     icon: Settings,
-    children: [
-      { title: "Serverless", url: "#", icon: Zap },
-      { title: "Edge Computing", url: "#", icon: Router },
-      { title: "IoT", url: "#", icon: Cpu },
-    ],
-  },
-];
-
-const automationCenter = [
-  {
-    title: "Task Scheduler",
-    url: "#",
-    icon: Home,
+    subItems: [
+      { title: "CMDB", icon: Home },
+      { title: "Version Control", icon: Inbox },
+      { title: "Configuration Drift", icon: Calendar }
+    ]
   },
   {
-    title: "Ansible",
-    url: "#",
-    icon: Inbox,
+    title: "Support Center",
+    icon: LifeBuoy,
+    subItems: [
+      { title: "Knowledge Base", icon: Home },
+      { title: "Ticketing System", icon: Inbox },
+      { title: "Chatbot", icon: Calendar }
+    ]
   },
   {
-    title: "Terraform",
-    url: "#",
-    icon: Calendar,
-  },
-];
-
-const aimlHub = [
-  {
-    title: "Models",
-    url: "#",
-    icon: Home,
+    title: "Notifications",
+    icon: Bell,
+    subItems: [
+      { title: "Alerts", icon: Home },
+      { title: "Incidents", icon: Inbox },
+      { title: "Events", icon: Calendar }
+    ]
   },
   {
-    title: "Training",
-    url: "#",
-    icon: Inbox,
+    title: "Cost Management",
+    icon: Wallet,
+    subItems: [
+      { title: "Cost Analysis", icon: Home },
+      { title: "Budgeting", icon: Inbox },
+      { title: "Cost Optimization", icon: Calendar },
+      { title: "Cost Allocation", icon: Calendar }
+    ]
   },
   {
-    title: "Inference",
-    url: "#",
-    icon: Calendar,
+    title: "Migration Toolkit",
+    icon: MoveRight,
+    subItems: [
+      { title: "Inventory Analysis", icon: Home },
+      { title: "Movegroup Planning", icon: Inbox },
+      { title: "Server Migration", icon: Calendar },
+      { title: "Network Migration", icon: Calendar }
+    ]
   },
   {
-    title: "Pipelines",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Data Management",
-    url: "#",
-    icon: Calendar,
-  },
-];
-
-const observability = [
-  {
-    title: "Logs",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Alerts",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Anomaly Detections",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Metrics",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Tracing",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Audit Logs",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Capacity Planning",
-    url: "#",
-    icon: Calendar,
-  },
-];
-
-const marketplace = [
-  {
-    title: "Apps",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Services",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Templates",
-    url: "#",
-    icon: Calendar,
-  },
-];
-
-const compliance = [
-  {
-    title: "Compliance Reports",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Audit Reports",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Policy Management",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Risk Assessment",
-    url: "#",
-    icon: Calendar,
-  },
-];
-
-const iam = [
-  {
-    title: "User Management",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "RBAC",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Single Sign-On",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Multi-Factor Setup",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Identity Federation",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "API Key Managment",
-    url: "#",
-    icon: Calendar,
-  },
-];
-
-const backup = [
-  {
-    title: "Backup",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Restore",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Replication",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Disaster Recovery",
-    url: "#",
-    icon: Calendar,
+    title: "Integrations",
+    icon: Plug,
+    subItems: [
+      { title: "API Integrations", icon: Home },
+      { title: "Third-Party Integrations", icon: Inbox },
+      { title: "Webhooks", icon: Calendar }
+    ]
   }
 ];
 
-const config = [
-  {
-    title: "CMDB",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Version Control",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Configuration Drift",
-    url: "#",
-    icon: Calendar,
-  },
-];
+export function Sidebar() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [openItems, setOpenItems] = useState<string[]>([]);
 
-const supportCenter = [
-  {
-    title: "Knowledge Base",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Ticketing System",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Chatbot",
-    url: "#",
-    icon: Calendar,
-  },
-];
+  const toggleCollapse = () => setIsCollapsed(!isCollapsed);
 
-const notifications = [
-  {
-    title: "Alerts",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Incidents",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Events",
-    url: "#",
-    icon: Calendar,
-  },
-];
+  const toggleItem = (title: string) => {
+      setOpenItems(prev =>
+          prev.includes(title)
+              ? prev.filter(item => item !== title)
+              : [...prev, title]
+      );
+  };
 
-const costManagement = [
-  {
-    title: "Cost Analysis",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Budgeting",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Cost Optimization",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Cost Allocation",
-    url: "#",
-    icon: Calendar,
-  },
-];
 
-const migrationToolkit = [
-  {
-    title: "Inventory Analysis",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Movegroup Planning",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Server Migration",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Network Migration",
-    url: "#",
-    icon: Calendar,
-  },
-];
-
-const integrations = [
-  {
-    title: "API Integrations",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Third-Party Integrations",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Webhooks",
-    url: "#",
-    icon: Calendar,
-  },
-];
-
-const MenuGroup = ({ title, items }: { title: string; items: any[] }) => {
   return (
-    <Collapsible defaultOpen className="group/collapsible">
-      <SidebarGroup>
-        <SidebarGroupLabel asChild>
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium">{title}</span>
-            <CollapsibleTrigger asChild>
-              <button className="ml-2 p-1 rounded hover:bg-muted">
-                <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-180" />
-              </button>
-            </CollapsibleTrigger>
-          </div>
-        </SidebarGroupLabel>
+      <div className={cn(
+          "fixed top-[56px] left-0 bottom-0 border-r transition-all duration-300", // Added top-[56px]
+          "bg-gray-50 text-gray-700", // Kept original colors
+          isCollapsed ? "w-[70px]" : "w-[275px]"
+      )}>
+          <div className="relative flex items-center justify-between p-2">
 
-        <CollapsibleContent>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  {item.children && item.children.length > 0 ? (
-                    <Collapsible className="group/item-collapsible">
-                      <SidebarMenuButton asChild>
-                        <CollapsibleTrigger asChild>
-                          <button className="flex items-center justify-between w-full">
-                            <div className="flex items-center">
-                              <item.icon className="w-4 h-4 mr-2" />
-                              <span>{item.title}</span>
-                            </div>
-                            <ChevronDown className="h-4 w-4 ml-2 transition-transform group-data-[state=open]/item-collapsible:rotate-180" />
-                          </button>
-                        </CollapsibleTrigger>
-                      </SidebarMenuButton>
-
-                      <CollapsibleContent>
-                        <SidebarMenuSub className="pl-4">
-                          {item.children.map((child) => (
-                            <SidebarMenuSubItem key={child.title}>
-                              <SidebarMenuSubButton asChild>
-                                <a href={child.url} className="flex items-center">
-                                  <child.icon className="w-4 h-4 mr-2" />
-                                  <span>{child.title}</span>
-                                </a>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          ))}
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
-                    </Collapsible>
-                  ) : (
-                    <SidebarMenuButton asChild>
-                      <a href={item.url} className="flex items-center">
-                        <item.icon className="w-4 h-4 mr-2" />
-                        <span>{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
+              <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleCollapse}
+                  className={cn(
+                      "absolute rounded-full border bg-white shadow-sm hover:bg-gray-100 text-gray-700",
+                      isCollapsed ? "-right-7 top-4" : "-right-7 top-5"
                   )}
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </CollapsibleContent>
-      </SidebarGroup>
-    </Collapsible>
-  );
-};
+              >
+                  {isCollapsed ? (
+                      <ChevronRight className="h-4 w-4" />
+                  ) : (
+                      <ChevronLeft className="h-4 w-4" />
+                  )}
+              </Button>
+          </div>
 
-export function AppSidebar() {
-  return (
-    <Sidebar>
-      <SidebarContent>
-        <MenuGroup title="Resources" items={resources} />
-        <MenuGroup title="Automation Center" items={automationCenter} />
-        <MenuGroup title="AI/ML Hub" items={aimlHub} />
-        <MenuGroup title="Observability" items={observability} />
-        <MenuGroup title="Marketplace" items={marketplace} />
-        <MenuGroup title="Compliance Center" items={compliance} />
-        <MenuGroup title="IAM" items={iam} />
-        <MenuGroup title="Backup & DR" items={backup} />
-        <MenuGroup title="Config Management" items={config} />
-        <MenuGroup title="Support Center" items={supportCenter} />
-        <MenuGroup title="Notifications" items={notifications} />
-        <MenuGroup title="Cost Management" items={costManagement} />
-        <MenuGroup title="Migration Toolkit" items={migrationToolkit} />
-        <MenuGroup title="Integrations" items={integrations} />
-      </SidebarContent>
-    </Sidebar>
-    
+          <ScrollArea className="h-full">
+              <div className="space-y-1 p-2">
+                  {menuItems.map((item) => (
+                      <div key={item.title}>
+                          {!item.subItems ? (
+                              <Tooltip delayDuration={0}>
+                                  <TooltipTrigger asChild>
+                                      <Button
+                                          variant="ghost"
+                                          size="sm"
+                                          className={cn(
+                                              "w-full justify-start hover:bg-gray-200 text-gray-700",
+                                              isCollapsed ? "justify-center px-0" : "px-2 pr-8"
+                                          )}
+                                      >
+                                          <item.icon className="h-4 w-4" />
+                                          {!isCollapsed && (
+                                              <span className="ml-2 text-sm">{item.title}</span>
+                                          )}
+                                      </Button>
+                                  </TooltipTrigger>
+                                  {isCollapsed && (
+                                      <TooltipContent side="right" className="bg-gray-800 text-white">
+                                          {item.title}
+                                      </TooltipContent>
+                                  )}
+                              </Tooltip>
+                          ) : (
+                              <div>
+                                  <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className={cn(
+                                          "w-full justify-start hover:bg-gray-200 text-gray-700",
+                                          isCollapsed ? "justify-center px-0" : "px-2"
+                                      )}
+                                      onClick={() => toggleItem(item.title)}
+                                  >
+                                      <item.icon className="h-4 w-4" />
+                                      {!isCollapsed && (
+                                          <>
+                                              <span className="ml-2 text-sm">{item.title}</span>
+                                              <ChevronDown
+                                                  className={cn(
+                                                      "ml-auto h-4 w-4 transition-transform",
+                                                      openItems.includes(item.title) && "rotate-180"
+                                                  )}
+                                              />
+                                          </>
+                                      )}
+                                  </Button>
+
+                                  {!isCollapsed && openItems.includes(item.title) && (
+                                      <div className="ml-2 mt-1 space-y-1 border-l border-gray-200 pl-4">
+                                          {item.subItems.map((subItem) => (
+                                              <div key={subItem.title}>
+                                                  {!subItem.children ? (
+                                                      <Button
+                                                          variant="ghost"
+                                                          size="sm"
+                                                          className="w-full justify-start hover:bg-gray-200 text-gray-700 px-2"
+                                                      >
+                                                          <subItem.icon className="h-4 w-4" />
+                                                          <span className="ml-2 text-sm">{subItem.title}</span>
+                                                      </Button>
+                                                  ) : (
+                                                      <>
+                                                          <Button
+                                                              variant="ghost"
+                                                              size="sm"
+                                                              className="w-full justify-start hover:bg-gray-200 text-gray-700 px-2"
+                                                              onClick={() => toggleItem(subItem.title)}
+                                                          >
+                                                              <subItem.icon className="h-4 w-4" />
+                                                              <span className="ml-2 text-sm">{subItem.title}</span>
+                                                              <ChevronDown
+                                                                  className={cn(
+                                                                      "ml-auto h-4 w-4 transition-transform",
+                                                                      openItems.includes(subItem.title) && "rotate-180"
+                                                                  )}
+                                                              />
+                                                          </Button>
+                                                          {openItems.includes(subItem.title) && (
+                                                              <div className="ml-2 space-y-1 border-l border-gray-200 pl-4">
+                                                                  {subItem.children.map((child) => (
+                                                                      <Button
+                                                                          key={child.title}
+                                                                          variant="ghost"
+                                                                          size="sm"
+                                                                          className="w-full justify-start hover:bg-gray-200 text-gray-700 px-2"
+                                                                      >
+                                                                          <child.icon className="h-4 w-4" />
+                                                                          <span className="ml-2 text-sm">{child.title}</span>
+                                                                      </Button>
+                                                                  ))}
+                                                              </div>
+                                                          )}
+                                                      </>
+                                                  )}
+                                              </div>
+                                          ))}
+                                      </div>
+                                  )}
+                              </div>
+                          )}
+                      </div>
+                  ))}
+              </div>
+          </ScrollArea>
+      </div>
   );
 }
