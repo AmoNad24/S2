@@ -18,12 +18,15 @@ import { Search } from "lucide-react";
 
 export function Topbar() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-[#192539] text-[#c7c5c5]">
+
+    
+      
+    <header className="  w-full border-b bg-[#192539] text-[#c7c5c5]">
       <div className="flex h-14 items-center px-4">
         {/* Logo and Search */}
         <div className="flex items-center space-x-4">
           <img
-            src="./images/tcs_logo.png"
+            src= "src/assets/tcs_logo.png"
             alt="TCS Logo"
             className="h-8"
           />
@@ -94,5 +97,6 @@ export function Topbar() {
         </div>
       </div>
     </header>
+    
   );
 }

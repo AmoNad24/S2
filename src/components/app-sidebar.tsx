@@ -38,35 +38,6 @@ import {
 
 import { Collapsible,CollapsibleTrigger,CollapsibleContent } from "./ui/collapsible"
 
-// Menu items.
-// const resources = [
-//   {
-//     title: "Compute Management",
-//     url: "#",
-//     icon: Home,
-//   },
-//   {
-//     title: "Storage Management",
-//     url: "#",
-//     icon: Inbox,
-//   },
-//   {
-//     title: "Network Management",
-//     url: "#",
-//     icon: Calendar,
-//   },
-//   {
-//     title: "Platform as a Services",
-//     url: "#",
-//     icon: Search,
-//   },
-//   {
-//     title: "NextGen Computing",
-//     url: "#",
-//     icon: Settings,
-//   },
-// ]
-
 const resources = [
   {
     title: "Compute Management",
@@ -122,9 +93,6 @@ const resources = [
   },
 ];
 
-
-
-
 const automationCenter = [
   {
     title: "Task Scheduler",
@@ -141,7 +109,7 @@ const automationCenter = [
     url: "#",
     icon: Calendar,
   },
-]
+];
 
 const aimlHub = [
   {
@@ -169,8 +137,7 @@ const aimlHub = [
     url: "#",
     icon: Calendar,
   },
-]
-
+];
 
 const observability = [
   {
@@ -208,7 +175,7 @@ const observability = [
     url: "#",
     icon: Calendar,
   },
-]
+];
 
 const marketplace = [
   {
@@ -226,7 +193,8 @@ const marketplace = [
     url: "#",
     icon: Calendar,
   },
-]
+];
+
 const compliance = [
   {
     title: "Compliance Reports",
@@ -248,7 +216,7 @@ const compliance = [
     url: "#",
     icon: Calendar,
   },
-]
+];
 
 const iam = [
   {
@@ -281,7 +249,8 @@ const iam = [
     url: "#",
     icon: Calendar,
   },
-]
+];
+
 const backup = [
   {
     title: "Backup",
@@ -303,8 +272,8 @@ const backup = [
     url: "#",
     icon: Calendar,
   }
-  
-]
+];
+
 const config = [
   {
     title: "CMDB",
@@ -321,9 +290,8 @@ const config = [
     url: "#",
     icon: Calendar,
   },
-  
-  
-]
+];
+
 const supportCenter = [
   {
     title: "Knowledge Base",
@@ -340,9 +308,8 @@ const supportCenter = [
     url: "#",
     icon: Calendar,
   },
-  
-  
-]
+];
+
 const notifications = [
   {
     title: "Alerts",
@@ -359,9 +326,7 @@ const notifications = [
     url: "#",
     icon: Calendar,
   },
-  
-  
-]
+];
 
 const costManagement = [
   {
@@ -384,9 +349,7 @@ const costManagement = [
     url: "#",
     icon: Calendar,
   },
-  
-  
-]
+];
 
 const migrationToolkit = [
   {
@@ -409,9 +372,7 @@ const migrationToolkit = [
     url: "#",
     icon: Calendar,
   },
-  
-  
-]
+];
 
 const integrations = [
   {
@@ -429,367 +390,95 @@ const integrations = [
     url: "#",
     icon: Calendar,
   },
+];
 
-  
-]
+const MenuGroup = ({ title, items }: { title: string; items: any[] }) => {
+  return (
+    <Collapsible defaultOpen className="group/collapsible">
+      <SidebarGroup>
+        <SidebarGroupLabel asChild>
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium">{title}</span>
+            <CollapsibleTrigger asChild>
+              <button className="ml-2 p-1 rounded hover:bg-muted">
+                <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-180" />
+              </button>
+            </CollapsibleTrigger>
+          </div>
+        </SidebarGroupLabel>
 
+        <CollapsibleContent>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  {item.children && item.children.length > 0 ? (
+                    <Collapsible className="group/item-collapsible">
+                      <SidebarMenuButton asChild>
+                        <CollapsibleTrigger asChild>
+                          <button className="flex items-center justify-between w-full">
+                            <div className="flex items-center">
+                              <item.icon className="w-4 h-4 mr-2" />
+                              <span>{item.title}</span>
+                            </div>
+                            <ChevronDown className="h-4 w-4 ml-2 transition-transform group-data-[state=open]/item-collapsible:rotate-180" />
+                          </button>
+                        </CollapsibleTrigger>
+                      </SidebarMenuButton>
 
+                      <CollapsibleContent>
+                        <SidebarMenuSub className="pl-4">
+                          {item.children.map((child) => (
+                            <SidebarMenuSubItem key={child.title}>
+                              <SidebarMenuSubButton asChild>
+                                <a href={child.url} className="flex items-center">
+                                  <child.icon className="w-4 h-4 mr-2" />
+                                  <span>{child.title}</span>
+                                </a>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  ) : (
+                    <SidebarMenuButton asChild>
+                      <a href={item.url} className="flex items-center">
+                        <item.icon className="w-4 h-4 mr-2" />
+                        <span>{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  )}
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </CollapsibleContent>
+      </SidebarGroup>
+    </Collapsible>
+  );
+};
 
 export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon">
-
-
-
-
-
+    <Sidebar>
       <SidebarContent>
-
-
-
-        {/* Resources*/}
-        {/* <Collapsible defaultOpen className="group/collapsible">
-        <SidebarGroup>
-        <SidebarGroupLabel asChild>
-          <CollapsibleTrigger>
-            Resources
-            <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-          </CollapsibleTrigger>
-        </SidebarGroupLabel>
-          <CollapsibleContent>
-
-
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {resources.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                 
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-          </CollapsibleContent>
-
-
-        </SidebarGroup>
-        </Collapsible> */}
-<Collapsible defaultOpen className="group/collapsible">
-  <SidebarGroup>
-    <SidebarGroupLabel asChild>
-      <CollapsibleTrigger>
-        Resources
-        <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-      </CollapsibleTrigger>
-    </SidebarGroupLabel>
-    <CollapsibleContent>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          {resources.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              {/* New Collapsible for each item */}
-              <Collapsible className="group/item-collapsible">
-                <SidebarMenuButton asChild>
-                  <CollapsibleTrigger className="flex items-center w-full">
-                    <a href={item.url} className="flex items-center w-full">
-                      <item.icon className="w-4 h-4 mr-2" />
-                      <span>{item.title}</span>
-                      {item.children && (
-                        <ChevronDown className="ml-auto transition-transform group-data-[state=open]/item-collapsible:rotate-180" />
-                      )}
-                    </a>
-                  </CollapsibleTrigger>
-                </SidebarMenuButton>
-
-                {/* Submenu collapses */}
-                {item.children && item.children.length > 0 && (
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                      {item.children.map((child) => (
-                        <SidebarMenuSubItem key={child.title}>
-                          <SidebarMenuSubButton asChild>
-                            <a href={child.url} className="flex items-center">
-                              <child.icon className="w-4 h-4 mr-2" />
-                              <span>{child.title}</span>
-                            </a>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                )}
-              </Collapsible>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </CollapsibleContent>
-  </SidebarGroup>
-</Collapsible>
-
-
-
-
-
-
-        {/* Automation Center */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Automation Center</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {automationCenter.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-       
-       {/* AIML Hub */}
-        <SidebarGroup>
-          <SidebarGroupLabel>AI/ML Hub</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {aimlHub.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-       {/* Observability */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Observability</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {observability.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-       {/* Marketplace */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Marketplace</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {marketplace.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-
-       {/* Compliance Center */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Compliance Center</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {compliance.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-       {/* IAM */}
-        <SidebarGroup>
-          <SidebarGroupLabel>IAM</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {iam.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-       {/* Backup & DR */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Backup & DR</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {backup.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-       {/* Config Management */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Config Managment</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {config.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-       {/* Support Center */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Support Center</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {supportCenter.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-       {/* Notifications*/}
-        <SidebarGroup>
-          <SidebarGroupLabel>Notifications</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {notifications.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-       {/* Cost Management*/}
-        <SidebarGroup>
-          <SidebarGroupLabel>Cost Management</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {costManagement.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-
-       {/* Migration Toolkit*/}
-        <SidebarGroup>
-          <SidebarGroupLabel>Migration Toolkit</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {migrationToolkit.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-       {/* Integrations*/}
-        <SidebarGroup>
-          <SidebarGroupLabel>Integrations</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {integrations.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-
-
-
+        <MenuGroup title="Resources" items={resources} />
+        <MenuGroup title="Automation Center" items={automationCenter} />
+        <MenuGroup title="AI/ML Hub" items={aimlHub} />
+        <MenuGroup title="Observability" items={observability} />
+        <MenuGroup title="Marketplace" items={marketplace} />
+        <MenuGroup title="Compliance Center" items={compliance} />
+        <MenuGroup title="IAM" items={iam} />
+        <MenuGroup title="Backup & DR" items={backup} />
+        <MenuGroup title="Config Management" items={config} />
+        <MenuGroup title="Support Center" items={supportCenter} />
+        <MenuGroup title="Notifications" items={notifications} />
+        <MenuGroup title="Cost Management" items={costManagement} />
+        <MenuGroup title="Migration Toolkit" items={migrationToolkit} />
+        <MenuGroup title="Integrations" items={integrations} />
       </SidebarContent>
     </Sidebar>
-  )
+    
+  );
 }
