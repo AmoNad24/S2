@@ -58,7 +58,7 @@ import { RecommendationChart } from "./Charts/Reccomendation";
             <CardContent>
               <div className="text-2xl font-bold">1.93K</div>
               <div className="flex items-center text-xs text-green-500">
-                <ChevronUp className="h-3 w-3" />
+              <span className="h-4">↑</span>
                 <span>5 (24 hours)</span>
               </div>
             </CardContent>

@@ -1,5 +1,4 @@
 "use client";
-import { useSidebar } from "@/components/ui/sidebar/sidebar-context";
 import { useState } from "react";
 import { 
   LayoutDashboard, 
@@ -39,6 +38,7 @@ import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { Link } from "react-router-dom";
 // import Image from "next/image";
 
 const menuItems = [
@@ -248,8 +248,8 @@ export function Sidebar() {
 
   return (
       <div className={cn(
-          "fixed top-[56px] left-0 bottom-0 border-r transition-all duration-300", // Added top-[56px]
-          "bg-gray-50 text-gray-700", // Kept original colors
+          " top-[56px] left-0 bottom-0 border-r transition-all duration-300", 
+          "bg-gray-50 text-gray-700", 
           isCollapsed ? "w-[70px]" : "w-[275px]"
       )}>
           <div className="relative flex items-center justify-between p-2">
@@ -275,6 +275,8 @@ export function Sidebar() {
               <div className="space-y-1 p-2">
                   {menuItems.map((item) => (
                       <div key={item.title}>
+                        
+                        <Link to={item.title}>
                           {!item.subItems ? (
                               <Tooltip delayDuration={0}>
                                   <TooltipTrigger asChild>
@@ -322,6 +324,7 @@ export function Sidebar() {
                                           </>
                                       )}
                                   </Button>
+                                        
 
                                   {!isCollapsed && openItems.includes(item.title) && (
                                       <div className="ml-2 mt-1 space-y-1 border-l border-gray-200 pl-4">
@@ -374,9 +377,12 @@ export function Sidebar() {
                                           ))}
                                       </div>
                                   )}
+                                  
                               </div>
                           )}
+                          </Link> 
                       </div>
+                      
                   ))}
               </div>
           </ScrollArea>
