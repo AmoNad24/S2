@@ -6,7 +6,7 @@ import Layout from './Layout.tsx'
 import { createBrowserRouter,createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import OverviewPage from './components/Overview.tsx'
 import IAMPage from './components/Iam.tsx'
-import CompliancePage from './components/Compliance.tsx'
+// import CompliancePage from './components/Compliance.tsx'
 import  { AutomationCenter } from './components/Automation.tsx'
 import { BackupDRPage } from './components/Backup.tsx'
 import IntegrationsPage from './components/Integrations.tsx'
@@ -16,6 +16,10 @@ import { ResourcesPage } from './components/Resources.tsx'
 import { MigrationPage } from './components/Migration.tsx'
 import { AimlPage } from './components/AIML.tsx'
 import { ConfigPage } from './components/Config.tsx'
+import { MarketplacePage } from './components/Marketplace.tsx'
+import { CostManagementPage } from './components/Cost.tsx'
+import { SupportCenterPage } from './components/Support.tsx'
+import ComplianceCenterPage from './components/Compliance.tsx'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={ <Layout children={[]}/>}>
@@ -25,14 +29,14 @@ const router = createBrowserRouter(
       <Route path='/Automation Center' element={<AutomationCenter/>} />
       <Route path='/AI/ML Hub' element={<AimlPage/>} />
       <Route path='/Observability' element={<ObservabilityPage/>} />
-      <Route path='/Marketplace' element={<ObservabilityPage/>} />
-      <Route path='/Compliance Center' element={<CompliancePage/>} />
+      <Route path='/Marketplace' element={<MarketplacePage/>} />
+      <Route path='/Compliance Center' element={<ComplianceCenterPage/>} />
       <Route path='/IAM' element={<IAMPage/>} />
       <Route path='/Backup & DR' element={<BackupDRPage/>} />
       <Route path='/Config Management' element={<ConfigPage/>} />
-      <Route path='/Support Center' element={<BackupDRPage/>} />
+      <Route path='/Support Center' element={<SupportCenterPage/>} />
       <Route path='/Notifications' element={<NotificationsPage/>} />
-      <Route path='/Cost Management' element={<BackupDRPage/>} />
+      <Route path='/Cost Management' element={<CostManagementPage/>} />
       <Route path='/Migration Toolkit' element={<MigrationPage/>} />
       <Route path='/Integrations' element={<IntegrationsPage/>} />
 
