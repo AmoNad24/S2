@@ -8,7 +8,7 @@ type MarketplaceItem = {
   name: string;
   provider: string;
   description: string;
-  category: 'app' | 'service' | 'template';
+
   logo: string;
 };
 
@@ -22,64 +22,118 @@ export function MarketplacePage() {
       name: 'Patternfly',
       provider: 'Red Hat',
       description: 'PatternFly is a community project that promotes design commonality and improves user experience.',
-      category: 'app',
-      logo: '/icons/patternfly.svg'
+      
+      logo: 'src/icons/patternfly.svg'
     },
     {
       id: '2',
       name: 'ActiveMQ',
       provider: 'Red Hat',
       description: 'Allows messages to be sent/received to a JMS Queue or Topic using Apache ActiveMQ.',
-      category: 'service',
-      logo: '/icons/activemq.png'
+      
+      logo: 'src/icons/activemq.png'
     },
     {
       id: '3', 
       name: 'Apache Spark',
       provider: 'Red Hat',
       description: 'This page covers the Apache Spark component for the Apache Camel.',
-      category: 'service',
-      logo: '/icons/apachespark.png'
+      
+      logo: 'src/icons/apachespark.png'
     },
     {
       id: '4',
       name: 'Avro',
       provider: 'Red Hat',
       description: 'Provides a dataformat for avro, allowing serialization and deserialization of messages using Apache Avro.',
-      category: 'app',
-      logo: '/icons/avro.webp'
+      
+      logo: 'src/icons/avro.webp'
     },
     {
       id: '5',
       name: 'Azure Services',
       provider: 'Red Hat',
       description: 'The Camel Components provide connectivity to Azure services from Camel.',
-      category: 'service',
-      logo: '/icons/azure.png'
+      
+      logo: 'src/icons/azure.png'
     },
     {
       id: '6',
       name: 'GPU Enabled Compute',
       provider: 'Nvidia',
       description: 'GPU Enabled Compute for your GPU Intensive workloads.',
-      category: 'service',
-      logo: '/icons/Nvidia_logo.svg.png'
+      
+      logo: 'src/icons/Nvidia_logo.svg.png'
     },
     {
       id: '7',
       name: 'Dropbox',
       provider: 'Red Hat',
       description: 'Allows you to treat Dropbox remote folders as a producer/consumer of messages.',
-      category: 'app',
-      logo: '/icons/dropbox.png'
+      
+      logo: 'src/icons/dropbox.png'
     },
     {
       id: '8',
       name: 'Windows Server 2022 CIS',
       provider: 'Microsoft',
       description: 'CIS Hardened image with preconfigured security baselines for Windows Server 2022.',
-      category: 'template',
-      logo: '/icons/windows.png'
+      
+      logo: 'src/icons/windows.png'
+    }
+    ,
+    {
+      id: '9',
+      name: 'MongoDB Atlas',
+      provider: 'MongoDB',
+      description: 'Fully managed cloud database for modern apps with automated scaling and backups.',
+      
+      logo: 'src/icons/MongoDB_Logo.svg.png'
+    }
+    ,
+    {
+      id: '10',
+      name: 'ElasticSearch',
+      provider: 'Elastic',
+      description: 'Search, analyze, and visualize data in real time with Elastic Stack.',
+      
+      logo: 'src/icons/elastic.png'
+    }
+    ,
+    {
+      id: '11',
+      name: 'PostgreSQL',
+      provider: 'Bitnami',
+      description: 'Open-source relational database engine, easy to deploy and scale in the cloud.',
+      
+      logo: 'src/icons/postgres.png'
+    }
+    ,
+    {
+      id: '12',
+      name: 'Grafana',
+      provider: 'Grafana Labs',
+      description: 'Open-source analytics and monitoring platform for observability dashboards.',
+      
+      logo: 'src/icons/grafana.webp'
+    }
+    ,
+    {
+      id: '13',
+      name: 'Nginx',
+      provider: 'NGINX',
+      description: 'Web server and reverse proxy for load balancing, HTTP caching, and more.',
+      
+      logo: 'src/icons/nginx.png'
+    }
+    ,
+    {
+      id: '14',
+      name: 'Jenkins',
+      provider: 'Jenkins Project',
+      description: 'Automation server for CI/CD pipelines, build and deployment workflows.',
+      
+      logo: 'src/icons/jenkins.webp'
     }
   ];
 
@@ -112,9 +166,7 @@ export function MarketplacePage() {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-gray-600 mb-4">{item.description}</p>
-              <span className="inline-block px-3 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
-                {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
-              </span>
+             
             </CardContent>
           </Card>
         ))}
