@@ -248,7 +248,7 @@ export function Sidebar() {
 
   return (
       <div className={cn(
-          " top-[56px] left-0 bottom-0 border-r transition-all duration-300", 
+          "  top-[56px] left-0 bottom-0 border-r transition-all duration-300", 
           "bg-gray-50 text-gray-700", 
           isCollapsed ? "w-[70px]" : "w-[275px]"
       )}>
