@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { useState } from "react";
 
 type MarketplaceItem = {
@@ -142,14 +142,13 @@ export function MarketplacePage() {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Marketplace</h2>
         <div className="flex gap-2">
-          <Button onClick={() => setShowModal(true)}>
-            <Search className="mr-2 h-4 w-4" />
+          <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => setShowModal(true)}>
+            <Plus className="mr-2 h-4 w-4" />
             Add New Resource
           </Button>
         </div>
       </div>
 
-      {/* Marketplace Items Grid - matches original layout */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {marketplaceItems.map((item) => (
           <Card key={item.id} className="hover:shadow-lg transition-shadow">
@@ -172,30 +171,35 @@ export function MarketplacePage() {
         ))}
       </div>
 
-      {/* Add Resource Modal - matches original functionality */}
+   
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg w-full max-w-md">
-            <h3 className="text-lg font-semibold mb-4">Add Marketplace Resource</h3>
-            <div className="space-y-3">
-              <Button variant="outline" className="w-full justify-start">
-                Upload ISO
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                Add Image
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                Create Template
-              </Button>
-            </div>
-            <div className="mt-4 flex justify-end space-x-2">
-              <Button variant="outline" onClick={() => setShowModal(false)}>
-                Cancel
-              </Button>
-              <Button>Continue</Button>
-            </div>
-          </div>
-        </div>
+        
+
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
+                            <Card className="w-full max-w-md bg-gray-900 border-gray-700">
+                                <CardHeader>
+                                    <CardTitle className="text-white">Add Marketplace Resource
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white">
+                                        Upload ISO
+                                    </Button>
+                                    <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+                                        Add Image
+                                    </Button>
+                                    <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white">
+                                        Create Template
+                                    </Button>
+                                    <Button
+                                        onClick={() => setShowModal(false)}
+                                        className="ml-20px bg-red-500 hover:bg-red-600 text-white"
+                                    >
+                                        Cancel
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </div>
       )}
     </div>
   );

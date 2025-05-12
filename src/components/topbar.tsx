@@ -40,10 +40,10 @@ export function Topbar() {
           </div>
         </div>
 
-        {/* Spacer */}
+        
         <div className="flex flex-1"></div>
 
-        {/* User and Region Selector */}
+        
         <div className="flex items-center space-x-4">
           <Select>
             <SelectTrigger className="w-[180px] border-[#3b4656] bg-[#192539] text-[#c7c5c5] hover:bg-[#232f42] focus:ring-0">
@@ -84,7 +84,7 @@ export function Topbar() {
               <DropdownMenuItem
                 className="hover:bg-[#232f42]"
                 onClick={() => {
-                  // Add logout logic here
+                  
                   window.location.href = "/login";
                 }}
               >

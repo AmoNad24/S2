@@ -1,20 +1,18 @@
 import { 
     Users, Key, Shield, LogIn, Lock, Globe, 
-    Search, Plus, MoreVertical 
   } from "lucide-react";
   import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-  import { Button } from "@/components/ui/button";
-  import { Input } from "@/components/ui/input";
+ 
+
   import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
   import { Badge } from "@/components/ui/badge";
-  import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { RoleChart } from "./Charts/Role";
 import { ApiKeyChart } from "./Charts/API";
   
   export default function IAMPage() {
     return (
       <div className="space-y-6">
-        {/* Stats Cards */}
+        
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -69,19 +67,13 @@ import { ApiKeyChart } from "./Charts/API";
           </Card>
         </div>
   
-        {/* Recent Activity & Role Distribution */}
+      
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <Card className="md:col-span-2">
             <CardHeader>
               <div className="flex justify-between items-center">
                 <CardTitle>Recent Login Activity</CardTitle>
-                <div className="relative w-64">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    placeholder="Search logins..."
-                    className="pl-10"
-                  />
-                </div>
+                
               </div>
             </CardHeader>
             <CardContent>
@@ -143,20 +135,7 @@ import { ApiKeyChart } from "./Charts/API";
                           <Badge variant="destructive">MFA Required</Badge>
                         )}
                       </TableCell>
-                      <TableCell>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                              <MoreVertical className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent>
-                            <DropdownMenuItem>View Details</DropdownMenuItem>
-                            <DropdownMenuItem>Block User</DropdownMenuItem>
-                            <DropdownMenuItem>Reset Password</DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
+                      
                     </TableRow>
                   ))}
                 </TableBody>
@@ -180,10 +159,7 @@ import { ApiKeyChart } from "./Charts/API";
   <CardHeader>
     <div className="flex justify-between items-center">
       <CardTitle>API Key Usage (Top 5)</CardTitle>
-      <Button size="sm" variant="outline">
-        <Plus className="h-4 w-4 mr-2" />
-        Create Key
-      </Button>
+      
     </div>
   </CardHeader>
   <CardContent className="h-[300px]">
@@ -228,10 +204,7 @@ import { ApiKeyChart } from "./Charts/API";
                 <Badge variant="default">Enabled</Badge>
               </div>
   
-              <Button variant="outline" className="w-full mt-4">
-                <Plus className="h-4 w-4 mr-2" />
-                Add SSO Provider
-              </Button>
+             
             </CardContent>
           </Card>
         </div>

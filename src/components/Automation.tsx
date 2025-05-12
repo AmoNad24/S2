@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Calendar, Cog, Rocket } from "lucide-react";
+import {  Cog, Plus} from "lucide-react";
 import { useState } from "react";
 
 type AutomationTask = {
@@ -15,7 +15,7 @@ type AutomationTask = {
 
 export function AutomationCenter() {
   const [showModal, setShowModal] = useState(false);
-  const [activeTab, setActiveTab] = useState<'tasks' | 'playbooks' | 'scripts' | 'logs'>('tasks');
+
 
   const tasks: AutomationTask[] = [
     {
@@ -77,8 +77,8 @@ export function AutomationCenter() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Automation Center</h2>
-        <Button onClick={() => setShowModal(true)}>
-          <Rocket className="mr-2 h-4 w-4" />
+        <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => setShowModal(true)}>
+          <Plus className="mr-2 h-4 w-4" />
           Create New Automation
         </Button>
       </div>
@@ -183,38 +183,41 @@ export function AutomationCenter() {
         </Card>
       </div>
 
-      {/* New Automation Modal */}
+     
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-background p-6 rounded-lg max-w-md w-full">
-            <h3 className="text-lg font-semibold mb-4">Select Automation Type</h3>
-            <div className="space-y-3">
-              <Button variant="outline" className="w-full justify-start">
-                <Calendar className="mr-2 h-4 w-4" />
-                Scheduled Task
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                <Cog className="mr-2 h-4 w-4" />
-                Ansible Playbook
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                
-                Terraform Script
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                <Rocket className="mr-2 h-4 w-4" />
-                Workflow
-              </Button>
-            </div>
-            <div className="mt-4 flex justify-end space-x-2">
-              <Button variant="outline" onClick={() => setShowModal(false)}>
-                Cancel
-              </Button>
-              <Button>Continue</Button>
-            </div>
-          </div>
-        </div>
-      )}
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
+        <Card className="w-full max-w-md bg-gray-900 border-gray-700">
+            <CardHeader>
+                <CardTitle className="text-white">Automation
+                </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white">
+                    Scheduled Task
+                </Button>
+                <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+                    Ansible Playbook
+                </Button>
+                <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white">
+                    Terraform Script
+                </Button>
+                <Button className="w-full bg-blue-700 hover:bg-blue-800 text-white">
+                    Workflows
+                </Button>
+                <Button
+                    onClick={() => setShowModal(false)}
+                    className="bg-red-500 hover:bg-red-600 text-white"
+                >
+                    Cancel
+                </Button>
+            </CardContent>
+        </Card>
     </div>
+)}
+</div>
+
+
+
+
   );
 }

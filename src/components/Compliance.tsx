@@ -1,7 +1,6 @@
 "use client"
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { 
   Chart as ChartJS, 
   BarElement, 
@@ -16,7 +15,6 @@ import {
 } from 'chart.js'
 import { Bar, Line, Radar } from 'react-chartjs-2'
 
-// Register ChartJS components
 ChartJS.register(
   BarElement,
   LineElement,
@@ -236,7 +234,7 @@ const ComplianceCenterPage = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card>
           <CardHeader>
             <CardTitle>Most Active Malware (Last 3 Months)</CardTitle>
@@ -284,6 +282,19 @@ const ComplianceCenterPage = () => {
             />
           </CardContent>
         </Card>
+
+
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Targeted Countries (Last 3 Months)</CardTitle>
+          </CardHeader>
+          <CardContent className="h-[300px]">
+            <img src="src/images/map.png" alt="Some map image" />
+          </CardContent>
+        </Card>
+
+
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

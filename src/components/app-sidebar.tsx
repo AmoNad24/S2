@@ -39,7 +39,6 @@ import { ScrollArea } from "./ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { Link } from "react-router-dom";
-// import Image from "next/image";
 
 const menuItems = [
   {
@@ -250,7 +249,7 @@ export function Sidebar() {
       <div className={cn(
           "  top-[56px] left-0 bottom-0 border-r transition-all duration-300", 
           "bg-gray-50 text-gray-700", 
-          isCollapsed ? "w-[70px]" : "w-[275px]"
+          isCollapsed ? "w-[70px]" : "w-[250px]"
       )}>
           <div className="relative flex items-center justify-between p-2">
 
@@ -278,28 +277,19 @@ export function Sidebar() {
                         
                         <Link to={item.title}>
                           {!item.subItems ? (
-                              <Tooltip delayDuration={0}>
-                                  <TooltipTrigger asChild>
-                                      <Button
-                                          variant="ghost"
-                                          size="sm"
-                                          className={cn(
-                                              "w-full justify-start hover:bg-gray-200 text-gray-700",
-                                              isCollapsed ? "justify-center px-0" : "px-2 pr-8"
-                                          )}
-                                      >
-                                          <item.icon className="h-4 w-4" />
-                                          {!isCollapsed && (
-                                              <span className="ml-2 text-sm">{item.title}</span>
-                                          )}
-                                      </Button>
-                                  </TooltipTrigger>
-                                  {isCollapsed && (
-                                      <TooltipContent side="right" className="bg-gray-800 text-white">
-                                          {item.title}
-                                      </TooltipContent>
-                                  )}
-                              </Tooltip>
+                              <Button
+                              variant="ghost"
+                              size="sm"
+                              className={cn(
+                                  "w-full justify-start hover:bg-gray-200 text-gray-700",
+                                  isCollapsed ? "justify-center px-0" : "px-2 pr-8"
+                              )}
+                          >
+                              <item.icon className="h-4 w-4" />
+                              {!isCollapsed && (
+                                  <span className="ml-2 text-sm">{item.title}</span>
+                              )}
+                          </Button>
                           ) : (
                               <div>
                                   <Button
